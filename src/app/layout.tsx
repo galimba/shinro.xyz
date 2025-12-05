@@ -16,6 +16,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://shinro.xyz"),
   title: "Shinro - Spatial Intelligence for Autonomous Systems",
   description:
     "Dense volumetric foundation that autonomous systems use to navigate complex, unstructured environments with absolute certainty.",
@@ -28,6 +29,20 @@ export const metadata: Metadata = {
     "dense mapping",
     "volumetric",
   ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
+  alternates: {
+    canonical: "https://shinro.xyz",
+  },
   icons: {
     icon: [
       { url: "/favicon.png", sizes: "32x32", type: "image/png" },
@@ -40,18 +55,49 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Shinro - Spatial Intelligence Infrastructure",
-    description:
-      "Dense volumetric foundation for autonomous navigation.",
+    description: "Dense volumetric foundation for autonomous navigation.",
     url: "https://shinro.xyz",
     siteName: "Shinro",
     type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Shinro - Spatial Intelligence for Autonomous Systems",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Shinro - Spatial Intelligence Infrastructure",
-    description:
-      "Dense volumetric foundation for autonomous navigation.",
+    description: "Dense volumetric foundation for autonomous navigation.",
+    images: ["/og-image.png"],
   },
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Shinro",
+  url: "https://shinro.xyz",
+  logo: "https://shinro.xyz/images/logo-alpha-730x730.png",
+  description: "Volumetric Spatial Intelligence Infrastructure",
+  sameAs: ["https://github.com/shinro-xyz"],
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "sales",
+    email: "contact@shinro.xyz",
+  },
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Shinro",
+  url: "https://shinro.xyz",
+  description: "Dense volumetric foundation for autonomous systems navigation",
 };
 
 export default function RootLayout({
@@ -62,6 +108,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <head>
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-6DGH08LSBE"
           strategy="afterInteractive"
@@ -74,6 +121,16 @@ export default function RootLayout({
             gtag('config', 'G-6DGH08LSBE');
           `}
         </Script>
+        <Script
+          id="organization-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <Script
+          id="website-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
       </head>
       <body className="font-sans antialiased">{children}</body>
     </html>

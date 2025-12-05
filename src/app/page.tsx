@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <>
       <Navigation />
-      <main>
+      <main role="main">
         <Hero />
         <TheWedge />
         <ThreePillars />

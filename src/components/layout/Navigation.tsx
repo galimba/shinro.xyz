@@ -24,13 +24,14 @@ export function Navigation() {
 
   return (
     <header
+      role="banner"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-shinro-black/80 backdrop-blur-lg border-b border-shinro-border"
           : ""
       }`}
     >
-      <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <nav role="navigation" className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo with wordmark */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative w-10 h-10">
