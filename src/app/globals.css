@@ -1,0 +1,536 @@
+@import "tailwindcss";
+
+/* Shinro Design System */
+@theme inline {
+  /* Colors */
+  --color-shinro-black: #0A0A0B;
+  --color-shinro-dark: #111113;
+  --color-shinro-surface: #18181B;
+  --color-shinro-border: #27272A;
+  --color-shinro-border-subtle: #1F1F23;
+  --color-shinro-light: #9CA3AF;
+  --color-shinro-muted: #6B7280;
+  --color-shinro-accent: #3B82F6;
+  --color-shinro-accent-hover: #2563EB;
+  --color-shinro-accent-subtle: rgba(59, 130, 246, 0.1);
+  --color-shinro-heat: #FF4F00;
+
+  /* Fonts */
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
+
+  /* Animation Timings */
+  --duration-slow: 0.8s;
+  --duration-medium: 0.4s;
+  --duration-fast: 0.15s;
+
+  /* Animations */
+  --animate-fade-up: fade-up 0.6s ease-out forwards;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-breathe: breathe 4s ease-in-out infinite;
+  --animate-scan: scan 3s linear forwards;
+  --animate-glow-pulse: glow-pulse 2s ease-in-out infinite;
+}
+
+/* Keyframe Animations */
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.5));
+  }
+}
+
+@keyframes border-rotate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ===== 3D Grid Animation (Desktop Only) ===== */
+
+/* Keyframes */
+@keyframes grid-flow {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 0 82px, 0 0;
+  }
+}
+
+@keyframes horizon-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes scan-beam-move {
+  0% {
+    transform: rotateX(75deg) translateY(-100%);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% {
+    transform: rotateX(75deg) translateY(300%);
+    opacity: 0;
+  }
+}
+
+/* 3D Grid Styles - Desktop Only */
+@media (min-width: 768px) {
+  /* Scene container */
+  .grid-scene {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  /* 3D Perspective Container */
+  .grid-perspective {
+    position: absolute;
+    inset: 0;
+    perspective: 500px;
+    perspective-origin: 50% 64px;
+  }
+
+  /* The Grid Floor - true 3D perspective */
+  .grid-floor {
+    position: absolute;
+    top: 64px;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+
+    /* Grid pattern */
+    background:
+      /* Horizontal lines (parallel to horizon) */
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 78px,
+        rgba(59, 130, 246, 0.2) 79px,
+        rgba(59, 130, 246, 0.2) 81px,
+        transparent 82px
+      ),
+      /* Vertical lines (converge at horizon) */
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 78px,
+        rgba(59, 130, 246, 0.12) 79px,
+        rgba(59, 130, 246, 0.12) 81px,
+        transparent 82px
+      );
+
+    /* 3D Transform - tilts the grid into perspective */
+    transform: rotateX(75deg);
+    transform-origin: center top;
+    transform-style: preserve-3d;
+
+    /* Infinite scroll animation */
+    animation: grid-flow 3s linear infinite;
+
+    /* Fade at edges */
+    -webkit-mask-image:
+      linear-gradient(to bottom, transparent 0%, black 5%, black 50%, transparent 100%),
+      linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to bottom, transparent 0%, black 5%, black 50%, transparent 100%),
+      linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+    mask-composite: intersect;
+  }
+
+  /* Horizon Glow Line */
+  .horizon-glow {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(59, 130, 246, 0.15) 20%,
+      rgba(59, 130, 246, 0.5) 50%,
+      rgba(59, 130, 246, 0.15) 80%,
+      transparent 100%
+    );
+    box-shadow:
+      0 0 30px rgba(59, 130, 246, 0.4),
+      0 0 60px rgba(59, 130, 246, 0.2),
+      0 0 100px rgba(59, 130, 246, 0.1);
+    animation: horizon-pulse 4s ease-in-out infinite;
+  }
+
+  /* Scan Beam moving across grid */
+  .scan-beam {
+    position: absolute;
+    top: 64px;
+    left: -50%;
+    width: 200%;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(59, 130, 246, 0.3) 20%,
+      rgba(59, 130, 246, 1) 50%,
+      rgba(59, 130, 246, 0.3) 80%,
+      transparent 100%
+    );
+    box-shadow:
+      0 0 15px rgba(59, 130, 246, 0.8),
+      0 0 30px rgba(59, 130, 246, 0.5),
+      0 0 60px rgba(59, 130, 246, 0.3);
+    transform-origin: center top;
+    animation: scan-beam-move 5s ease-in-out infinite;
+  }
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-shinro-black);
+  color: white;
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background-color: rgba(59, 130, 246, 0.3);
+  color: white;
+}
+
+/* Button Components */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--color-shinro-accent);
+  color: white;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  transition: all 150ms ease-out;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-shinro-accent-hover);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-shinro-black), 0 0 0 4px rgba(59, 130, 246, 0.5);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  color: white;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-shinro-border);
+  transition: all 150ms ease-out;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-shinro-surface);
+  border-color: rgba(156, 163, 175, 0.2);
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-shinro-black), 0 0 0 4px rgba(255, 255, 255, 0.2);
+}
+
+/* Card Components */
+.card {
+  background-color: var(--color-shinro-surface);
+  border: 1px solid var(--color-shinro-border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: all 200ms ease-out;
+}
+
+.card-hover:hover {
+  border-color: rgba(59, 130, 246, 0.5);
+  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.05);
+}
+
+/* Input Styles */
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-shinro-surface);
+  border: 1px solid var(--color-shinro-border);
+  border-radius: 0.5rem;
+  color: white;
+  transition: all 150ms ease-out;
+}
+
+.input::placeholder {
+  color: var(--color-shinro-muted);
+}
+
+.input:focus {
+  outline: none;
+  border-color: transparent;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+/* Grid Background Pattern */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, var(--color-shinro-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-shinro-border) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ===== NEW: Glow Effects ===== */
+
+/* Logo Glow - displays original gradient colors with glow */
+.logo-glow {
+  filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3))
+    drop-shadow(0 0 40px rgba(59, 130, 246, 0.15))
+    drop-shadow(0 0 60px rgba(59, 130, 246, 0.05));
+  transition: filter 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.logo-glow:hover {
+  filter: drop-shadow(0 0 25px rgba(59, 130, 246, 0.5))
+    drop-shadow(0 0 50px rgba(59, 130, 246, 0.25))
+    drop-shadow(0 0 80px rgba(59, 130, 246, 0.1));
+  transform: scale(1.05);
+}
+
+/* Accent Glow */
+.glow-accent {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3),
+    0 0 40px rgba(59, 130, 246, 0.15),
+    0 0 60px rgba(59, 130, 246, 0.05);
+}
+
+/* Heat Glow */
+.glow-heat {
+  box-shadow: 0 0 20px rgba(255, 79, 0, 0.3),
+    0 0 40px rgba(255, 79, 0, 0.15),
+    0 0 60px rgba(255, 79, 0, 0.05);
+}
+
+/* Animated Border Glow */
+.border-glow-accent {
+  position: relative;
+}
+
+.border-glow-accent::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(59, 130, 246, 0.5),
+    rgba(59, 130, 246, 0.2),
+    rgba(59, 130, 246, 0.5)
+  );
+  background-size: 200% 100%;
+  animation: border-rotate 3s linear infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.border-glow-heat::before {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 79, 0, 0.5),
+    rgba(255, 79, 0, 0.2),
+    rgba(255, 79, 0, 0.5)
+  );
+  background-size: 200% 100%;
+  animation: border-rotate 3s linear infinite;
+}
+
+/* ===== NEW: Noise Texture Overlay ===== */
+.noise-overlay {
+  position: relative;
+}
+
+.noise-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* ===== NEW: Edge Fade Effect ===== */
+.edge-fade {
+  -webkit-mask-image: radial-gradient(
+    ellipse 80% 70% at 50% 50%,
+    black 40%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 80% 70% at 50% 50%,
+    black 40%,
+    transparent 100%
+  );
+}
+
+/* ===== NEW: Typography Enhancements ===== */
+.headline-shadow {
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.tracking-tighter {
+  letter-spacing: -0.02em;
+}
+
+/* Mono glow for stats */
+.mono-glow {
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+/* ===== NEW: Card Tilt Effect ===== */
+.card-tilt {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.3s ease-out;
+}
+
+.card-tilt:hover {
+  transform: rotateX(2deg) rotateY(2deg);
+}
+
+/* ===== NEW: Blinking Cursor ===== */
+.cursor-blink::after {
+  content: "▋";
+  animation: blink 1s step-end infinite;
+  color: var(--color-shinro-accent);
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ===== NEW: CRT Scanline Effect ===== */
+.crt-lines {
+  position: relative;
+}
+
+.crt-lines::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ===== Enhanced Button Styles ===== */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--color-shinro-accent);
+  color: white;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  transition: all 150ms ease-out;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-shinro-accent-hover);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+/* ===== Enhanced Input Focus ===== */
+.input:focus {
+  outline: none;
+  border-color: var(--color-shinro-accent);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3),
+    0 0 20px rgba(59, 130, 246, 0.2);
+}
