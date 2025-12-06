@@ -3,8 +3,13 @@
 import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
 
+// Basic client-side email validation
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export function LeadGen() {
   const [email, setEmail] = useState("");
+  const [honeypot, setHoneypot] = useState("");
+  const [pageLoadTime] = useState(() => Date.now());
   const [status, setStatus] = useState<
     "idle" | "submitting" | "success" | "error"
   >("idle");
@@ -12,31 +17,43 @@ export function LeadGen() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    // Client-side validation
+    if (!EMAIL_REGEX.test(email)) {
+      setStatus("error");
+      setErrorMessage("Please enter a valid email address");
+      return;
+    }
+
     setStatus("submitting");
     setErrorMessage("");
 
     try {
-      // Replace YOUR_FORMSPREE_ID with your actual Formspree form ID
-      const response = await fetch(
-        "https://formspree.io/f/YOUR_FORMSPREE_ID",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email }),
-        }
-      );
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          website: honeypot,
+          _ts: pageLoadTime,
+        }),
+      });
+
+      const data = await response.json();
 
       if (response.ok) {
         setStatus("success");
         setEmail("");
       } else {
-        throw new Error("Failed to submit");
+        throw new Error(data.error || "Failed to submit");
       }
-    } catch {
+    } catch (err) {
       setStatus("error");
-      setErrorMessage("Something went wrong. Please try again.");
+      setErrorMessage(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      );
     }
   };
 
@@ -115,6 +132,22 @@ export function LeadGen() {
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
+          {/* Honeypot field - hidden from humans, catches bots */}
+          <input
+            type="text"
+            name="website"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
+            autoComplete="off"
+            tabIndex={-1}
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              left: "-9999px",
+              opacity: 0,
+              pointerEvents: "none",
+            }}
+          />
           <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
             <input
               type="email"
