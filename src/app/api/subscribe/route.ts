@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { headers } from "next/headers";
 import { emailSubmissionSchema, isHumanTiming } from "@/lib/validation";
 import { isDisposableEmail } from "@/lib/disposable-emails";
 import { checkRateLimit, getResetTime } from "@/lib/rate-limit";
@@ -20,11 +19,12 @@ export async function POST(request: NextRequest) {
     }
 
     // 2. Get client IP for rate limiting
-    // Priority: x-real-ip (Vercel's actual client IP) > x-forwarded-for (fallback)
-    const headersList = await headers();
-    const realIp = headersList.get("x-real-ip");
-    const forwardedFor = headersList.get("x-forwarded-for");
-    const ip = realIp || forwardedFor?.split(",")[0]?.trim() || "unknown";
+    // Priority: request.ip (Vercel-specific) > x-real-ip > x-forwarded-for
+    const vercelIp = (request as NextRequest & { ip?: string }).ip;
+    const ip = vercelIp
+      || request.headers.get("x-real-ip")
+      || request.headers.get("x-forwarded-for")?.split(",")[0]?.trim()
+      || "unknown";
 
     // 3. Rate limit check
     const { success: rateLimitOk } = checkRateLimit(ip);
@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 9. Append to Google Sheets
-    const referer = headersList.get("referer") || "direct";
+    const referer = request.headers.get("referer") || "direct";
 
     await appendToSheet({
       email,
