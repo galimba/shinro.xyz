@@ -20,9 +20,11 @@ export async function POST(request: NextRequest) {
     }
 
     // 2. Get client IP for rate limiting
+    // Priority: x-real-ip (Vercel's actual client IP) > x-forwarded-for (fallback)
     const headersList = await headers();
+    const realIp = headersList.get("x-real-ip");
     const forwardedFor = headersList.get("x-forwarded-for");
-    const ip = forwardedFor?.split(",")[0]?.trim() || "unknown";
+    const ip = realIp || forwardedFor?.split(",")[0]?.trim() || "unknown";
 
     // 3. Rate limit check
     const { success: rateLimitOk } = checkRateLimit(ip);
@@ -86,14 +88,12 @@ export async function POST(request: NextRequest) {
 
     // 9. Append to Google Sheets
     const referer = headersList.get("referer") || "direct";
-    // Mask IP for privacy (keep first segment only)
-    const maskedIp = ip !== "unknown" ? ip.split(".")[0] + ".*.*.*" : "unknown";
 
     await appendToSheet({
       email,
       timestamp: new Date().toISOString(),
       source: referer,
-      ip: maskedIp,
+      ip,
     });
 
     return NextResponse.json({ success: true });
