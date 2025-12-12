@@ -36,7 +36,7 @@ export function Navigation() {
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative w-10 h-10">
             <Image
-              src="/images/logo-alpha-730x730.png"
+              src="/images/logo-new.png"
               alt="Shinro"
               fill
               className="object-contain logo-glow"

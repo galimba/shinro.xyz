@@ -82,7 +82,7 @@ const organizationSchema = {
   "@type": "Organization",
   name: "Shinro",
   url: "https://shinro.xyz",
-  logo: "https://shinro.xyz/images/logo-alpha-730x730.png",
+  logo: "https://shinro.xyz/images/logo-new.png",
   description: "Volumetric Spatial Intelligence Infrastructure",
   sameAs: ["https://github.com/shinro-xyz"],
   contactPoint: {
