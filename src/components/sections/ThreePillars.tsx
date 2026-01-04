@@ -7,11 +7,11 @@ import { useRef } from "react";
 const pillars = [
   {
     label: "ANCHOR",
-    title: "Continuous Volumetric State",
+    title: "The Viewport",
     description:
-      "Navigation that never resets. Drift-corrected pose graph optimization maintains spatial awareness indefinitely.",
+      "See what your system sees. A high-fidelity 3D visualization with toggleable layers: raw sensor data, safe zones, and semantic objects.",
     icon: "01",
-    // Crosshair icon path
+    // Eye/viewport icon
     iconPath: (
       <svg
         className="w-8 h-8 text-shinro-accent"
@@ -19,22 +19,18 @@ const pillars = [
         stroke="currentColor"
         viewBox="0 0 24 24"
       >
-        <circle cx="12" cy="12" r="10" strokeWidth="1.5" />
-        <line x1="12" y1="2" x2="12" y2="6" strokeWidth="1.5" />
-        <line x1="12" y1="18" x2="12" y2="22" strokeWidth="1.5" />
-        <line x1="2" y1="12" x2="6" y2="12" strokeWidth="1.5" />
-        <line x1="18" y1="12" x2="22" y2="12" strokeWidth="1.5" />
-        <circle cx="12" cy="12" r="3" strokeWidth="1.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
       </svg>
     ),
   },
   {
     label: "DIGITIZE",
-    title: "Dense 3D Geometry",
+    title: "The Flow Editor",
     description:
-      "Maps that catch everything. GPU-accelerated TSDF/ESDF generation captures the chair leg, the hanging cable, and the glass wall.",
+      "Wire up intelligence visually. Drag sensor inputs to processing nodes to action outputs. Double-click any node to write custom code.",
     icon: "02",
-    // Grid/mesh icon
+    // Node/flow icon
     iconPath: (
       <svg
         className="w-8 h-8 text-shinro-accent"
@@ -42,20 +38,21 @@ const pillars = [
         stroke="currentColor"
         viewBox="0 0 24 24"
       >
-        <rect x="3" y="3" width="7" height="7" strokeWidth="1.5" />
-        <rect x="14" y="3" width="7" height="7" strokeWidth="1.5" />
-        <rect x="3" y="14" width="7" height="7" strokeWidth="1.5" />
-        <rect x="14" y="14" width="7" height="7" strokeWidth="1.5" />
+        <rect x="3" y="3" width="7" height="7" strokeWidth="1.5" rx="1" />
+        <rect x="14" y="14" width="7" height="7" strokeWidth="1.5" rx="1" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M10 6.5h4M14 6.5l-2 2M14 6.5l-2-2" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6.5 10v4M6.5 14l2-2M6.5 14l-2-2" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M10 17.5h4" />
       </svg>
     ),
   },
   {
     label: "ADAPT",
-    title: "Context-Aware Streaming",
+    title: "Hardware Abstraction",
     description:
-      "Intelligence that scales. Dynamic map swapping and ROI loading for bandwidth efficiency without blindness.",
+      "Plug in your sensors. They just work. Standardized data layout means your logic runs on any hardware without rewriting drivers.",
     icon: "03",
-    // Layers icon
+    // Plug/USB icon
     iconPath: (
       <svg
         className="w-8 h-8 text-shinro-accent"
@@ -63,9 +60,7 @@ const pillars = [
         stroke="currentColor"
         viewBox="0 0 24 24"
       >
-        <polygon points="12,2 22,8.5 12,15 2,8.5" strokeWidth="1.5" />
-        <polyline points="2,15 12,21.5 22,15" strokeWidth="1.5" />
-        <polyline points="2,11.5 12,18 22,11.5" strokeWidth="1.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M5.636 18.364a9 9 0 010-12.728m12.728 0a9 9 0 010 12.728m-9.9-2.829a5 5 0 010-7.07m7.072 0a5 5 0 010 7.07M13 12a1 1 0 11-2 0 1 1 0 012 0z" />
       </svg>
     ),
   },
@@ -84,8 +79,11 @@ export function ThreePillars() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold tracking-tighter headline-shadow">
-            Three pillars of spatial intelligence
+            Shinro Studio
           </h2>
+          <p className="mt-4 text-shinro-light max-w-2xl mx-auto leading-relaxed">
+            Your visual development environment for autonomous systems.
+          </p>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-6">
@@ -141,6 +139,18 @@ export function ThreePillars() {
             </motion.div>
           ))}
         </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="text-center mt-12"
+        >
+          <a href="#request-access" className="btn-primary">
+            Request Access
+          </a>
+        </motion.div>
       </div>
     </section>
   );

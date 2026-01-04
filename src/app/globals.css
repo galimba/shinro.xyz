@@ -534,3 +534,119 @@ body {
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3),
     0 0 20px rgba(59, 130, 246, 0.2);
 }
+
+/* ===== Logo Marquee ===== */
+@keyframes logo-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Container with edge fade masks */
+.logo-marquee-container {
+  position: relative;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+/* Left edge fade */
+.logo-marquee-fade-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  background: linear-gradient(
+    to right,
+    var(--color-shinro-black) 0%,
+    transparent 100%
+  );
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Right edge fade */
+.logo-marquee-fade-right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  background: linear-gradient(
+    to left,
+    var(--color-shinro-black) 0%,
+    transparent 100%
+  );
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Scrolling track */
+.logo-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: logo-marquee var(--marquee-duration, 25s) linear infinite;
+}
+
+/* Pause on hover */
+.logo-marquee-container:hover .logo-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Logo item styling */
+.logo-item {
+  transition: opacity 0.3s ease-out;
+}
+
+.logo-item:hover {
+  opacity: 1 !important;
+}
+
+/* Logo treatment: brand colors visible, subtle glow, works on dark bg */
+.logo-treatment {
+  opacity: 0.75;
+  filter: 
+    brightness(1.15)
+    contrast(1.05)
+    drop-shadow(0 0 10px rgba(59, 130, 246, 0.2));
+  mix-blend-mode: lighten;
+  transition: all 0.3s ease-out;
+}
+
+.logo-item:hover .logo-treatment {
+  opacity: 1;
+  filter: 
+    brightness(1.25)
+    contrast(1.1)
+    drop-shadow(0 0 16px rgba(59, 130, 246, 0.35));
+}
+
+/* Reduced motion: disable auto-scroll, enable manual scroll */
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee-track {
+    animation: none;
+  }
+
+  .logo-marquee-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-shinro-border) transparent;
+  }
+
+  .logo-marquee-container::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .logo-marquee-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .logo-marquee-container::-webkit-scrollbar-thumb {
+    background: var(--color-shinro-border);
+    border-radius: 2px;
+  }
+}

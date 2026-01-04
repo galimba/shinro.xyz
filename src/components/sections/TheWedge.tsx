@@ -11,9 +11,9 @@ const useCases = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
       </svg>
     ),
-    title: "Cluttered Environments",
-    challenge: "Warehouses, factories, and homes are filled with thin obstacles—cables, chair legs, furniture edges—that can be overlooked by sparse feature tracking.",
-    solution: "Dense volumetric mapping captures the complete 3D geometry of every obstacle, enabling safer navigation in complex real-world spaces.",
+    title: "Complex Spaces",
+    challenge: "Warehouses, factories, and disaster zones are filled with obstacles, debris, cables, and unstable structures.",
+    solution: "Complete spatial awareness captures the geometry of every obstacle, enabling safer navigation in real-world spaces.",
   },
   {
     icon: (
@@ -21,9 +21,9 @@ const useCases = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125z" />
       </svg>
     ),
-    title: "Reflective & Transparent Surfaces",
-    challenge: "Glass walls, mirrors, and water create visual ambiguities that confuse feature-based matching algorithms.",
-    solution: "Volumetric depth integration works directly with distance measurements, handling challenging surfaces where visual features fail.",
+    title: "Multi-Sensor Fusion",
+    challenge: "No single sensor handles every situation. Cameras struggle in darkness, LiDAR misses glass.",
+    solution: "Combine cameras, LiDAR, and depth sensors into a unified perception system. Each sensor compensates for the others.",
   },
   {
     icon: (
@@ -31,32 +31,32 @@ const useCases = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
-    title: "Long-Duration Missions",
-    challenge: "Extended operation causes accumulated drift that degrades map quality over time, requiring manual resets or recalibration.",
-    solution: "Global pose-graph optimization continuously corrects drift, maintaining consistent maps across hours or days of operation.",
+    title: "Always-On Operations",
+    challenge: "Extended operation without human intervention requires consistent performance. Drift and resets disrupt workflows.",
+    solution: "Continuous drift correction maintains consistent maps across hours or days of operation without manual resets.",
   },
 ];
 
 const capabilities = [
   {
-    label: "GPU-Accelerated",
-    stat: "10-12×",
-    description: "faster loop closure",
+    label: "Response Time",
+    stat: "<10ms",
+    description: "Obstacle detection to decision",
   },
   {
-    label: "TSDF/ESDF",
-    stat: "O(1)",
-    description: "collision queries",
-  },
-  {
-    label: "Level of Detail",
+    label: "Resolution Scaling",
     stat: "Adaptive",
-    description: "resolution scaling",
+    description: "Detail where it matters",
   },
   {
     label: "Sensor Agnostic",
     stat: "Unified",
-    description: "LiDAR + cameras",
+    description: "LiDAR, cameras, depth, your choice",
+  },
+  {
+    label: "Hardware Portable",
+    stat: "100%",
+    description: "Jetson, x86, Orin, same code",
   },
 ];
 
@@ -78,10 +78,10 @@ export function TheWedge() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold tracking-tighter headline-shadow">
-            Where Dense Mapping Makes the Difference
+            Built for Real-World Complexity
           </h2>
           <p className="mt-4 text-shinro-light max-w-2xl mx-auto leading-relaxed">
-            Different mapping approaches serve different needs. <br />Volumetric density is essential for safe, reliable autonomy.
+            Shinro Studio enables you to handle environments that challenge traditional approaches.
           </p>
         </motion.div>
 

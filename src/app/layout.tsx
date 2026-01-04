@@ -19,15 +19,16 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://shinro.xyz"),
   title: "Shinro - Spatial Intelligence for Autonomous Systems",
   description:
-    "Dense volumetric foundation that autonomous systems use to navigate complex, unstructured environments with absolute certainty.",
+    "A visual framework for autonomous systems. Build vehicles, drones, robots, and underwater systems that see, think, and move together.",
   keywords: [
     "spatial intelligence",
     "autonomous systems",
-    "SLAM",
-    "robotics",
-    "navigation",
-    "dense mapping",
-    "volumetric",
+    "robotics SDK",
+    "robot navigation",
+    "multi-robot coordination",
+    "perception framework",
+    "sensor fusion",
+    "hardware abstraction",
   ],
   robots: {
     index: true,
@@ -55,7 +56,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Shinro - Spatial Intelligence Infrastructure",
-    description: "Dense volumetric foundation for autonomous navigation.",
+    description: "A visual framework for autonomous systems. Build vehicles, drones, robots, and underwater systems that see, think, and move together.",
     url: "https://shinro.xyz",
     siteName: "Shinro",
     type: "website",
@@ -72,7 +73,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Shinro - Spatial Intelligence Infrastructure",
-    description: "Dense volumetric foundation for autonomous navigation.",
+    description: "A visual framework for autonomous systems. Build vehicles, drones, robots, and underwater systems that see, think, and move together.",
     images: ["/og-image.png"],
   },
 };
@@ -83,7 +84,7 @@ const organizationSchema = {
   name: "Shinro",
   url: "https://shinro.xyz",
   logo: "https://shinro.xyz/images/logo-new.png",
-  description: "Volumetric Spatial Intelligence Infrastructure",
+  description: "A visual framework for autonomous systems. Build vehicles, drones, robots, and underwater systems that see, think, and move together.",
   sameAs: ["https://github.com/shinro-xyz"],
   contactPoint: {
     "@type": "ContactPoint",
@@ -97,7 +98,7 @@ const websiteSchema = {
   "@type": "WebSite",
   name: "Shinro",
   url: "https://shinro.xyz",
-  description: "Dense volumetric foundation for autonomous systems navigation",
+  description: "A visual framework for autonomous systems. Build vehicles, drones, robots, and underwater systems that see, think, and move together.",
 };
 
 export default function RootLayout({

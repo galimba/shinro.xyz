@@ -5,16 +5,16 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 
 const stats = [
-  { value: "<10ms", label: "Latency", description: "Real-time ESDF queries" },
+  { value: "<10ms", label: "Reaction Time", description: "Sensor to action" },
   {
     value: "100%",
-    label: "Hardware Agnostic",
+    label: "Portable",
     description: "Jetson, Orin, x86 GPUs",
   },
   {
-    value: "API",
-    label: "First",
-    description: "Query distance to any surface",
+    value: "No-Code",
+    label: "Hybrid Approach",
+    description: "Drag and connect nodes or write code",
   },
 ];
 
@@ -86,28 +86,73 @@ export function TechnicalAuthority() {
           <pre className="font-mono text-sm relative">
             <code>
               <span className="text-shinro-muted">
-                {"// Query distance to nearest surface"}
+                {"// Inside a custom CrackDetector node"}
               </span>
               {"\n"}
-              <span className="text-purple-400">const</span>{" "}
-              <span className="text-white">distance</span>{" "}
-              <span className="text-white">=</span>{" "}
-              <span className="text-shinro-accent">shinro</span>
-              <span className="text-white">.</span>
-              <span className="text-yellow-300">esdf</span>
-              <span className="text-white">.</span>
-              <span className="text-yellow-300">query</span>
+              <span className="text-purple-400">class</span>{" "}
+              <span className="text-yellow-300">CrackDetector</span>{" "}
+              <span className="text-purple-400">extends</span>{" "}
+              <span className="text-shinro-accent">ShinroNode</span>{" "}
+              <span className="text-white">{"{"}</span>
+              {"\n"}
+              {"  "}
+              <span className="text-yellow-300">process</span>
               <span className="text-white">(</span>
-              <span className="text-orange-400">position</span>
-              <span className="text-white">);</span>
+              <span className="text-orange-400">input</span>
+              <span className="text-white">) {"{"}</span>
               {"\n"}
-              <span className="text-shinro-muted">
-                {"// Returns: "}
-              </span>
-              <span className="text-green-400">0.42m</span>
-              <span className="text-shinro-muted">
-                {" to nearest obstacle"}
-              </span>
+              {"    "}
+              <span className="text-purple-400">const</span>{" "}
+              <span className="text-white">voxels</span>{" "}
+              <span className="text-white">=</span>{" "}
+              <span className="text-orange-400">input</span>
+              <span className="text-white">.</span>
+              <span className="text-white">map</span>
+              <span className="text-white">.</span>
+              <span className="text-yellow-300">getVoxelsInFront</span>
+              <span className="text-white">();</span>
+              {"\n"}
+              {"    "}
+              <span className="text-purple-400">const</span>{" "}
+              <span className="text-white">cracks</span>{" "}
+              <span className="text-white">=</span>{" "}
+              <span className="text-purple-400">this</span>
+              <span className="text-white">.</span>
+              <span className="text-yellow-300">analyzeSurface</span>
+              <span className="text-white">(</span>
+              <span className="text-white">voxels</span>
+              <span className="text-white">);</span>
+              {"\n\n"}
+              {"    "}
+              <span className="text-purple-400">if</span>{" "}
+              <span className="text-white">(</span>
+              <span className="text-white">cracks</span>
+              <span className="text-white">.</span>
+              <span className="text-white">length</span>{" "}
+              <span className="text-white">&gt;</span>{" "}
+              <span className="text-orange-400">0</span>
+              <span className="text-white">) {"{"}</span>
+              {"\n"}
+              {"      "}
+              <span className="text-purple-400">return</span>{" "}
+              <span className="text-white">{"{"}</span>{" "}
+              <span className="text-green-400">action</span>
+              <span className="text-white">:</span>{" "}
+              <span className="text-green-400">&apos;flag&apos;</span>
+              <span className="text-white">,</span>{" "}
+              <span className="text-green-400">data</span>
+              <span className="text-white">:</span>{" "}
+              <span className="text-white">cracks</span>{" "}
+              <span className="text-white">{"}"}</span>
+              <span className="text-white">;</span>
+              {"\n"}
+              {"    "}
+              <span className="text-white">{"}"}</span>
+              {"\n"}
+              {"  "}
+              <span className="text-white">{"}"}</span>
+              {"\n"}
+              <span className="text-white">{"}"}</span>
               <span className="cursor-blink" />
             </code>
           </pre>

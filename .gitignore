@@ -44,3 +44,9 @@ next-env.d.ts
 CLAUDE.md
 .cursor*
 .claude*
+
+# playwright
+playwright-report
+test-results
+.playwright/*
+.playwright-mcp/*
