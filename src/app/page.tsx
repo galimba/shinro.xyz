@@ -7,6 +7,7 @@ import { ThreePillars } from "@/components/sections/ThreePillars";
 import { BuiltFor } from "@/components/sections/BuiltFor";
 import { TechnicalAuthority } from "@/components/sections/TechnicalAuthority";
 import { LeadGen } from "@/components/sections/LeadGen";
+import { DemoCTA } from "@/components/sections/DemoCTA";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
         <BuiltFor />
         <TechnicalAuthority />
         <LeadGen />
+        <DemoCTA />
       </main>
       <Footer />
     </>
