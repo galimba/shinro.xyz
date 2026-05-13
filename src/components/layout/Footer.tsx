@@ -29,6 +29,14 @@ export function Footer() {
           {/* Links */}
           <div className="flex items-center gap-6 text-sm">
             <Link
+              href="https://docs.shinro.xyz/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-shinro-light hover:text-white transition-colors"
+            >
+              Documentation
+            </Link>
+            <Link
               href="#"
               className="text-shinro-light hover:text-white transition-colors"
             >
