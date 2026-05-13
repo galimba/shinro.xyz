@@ -5,10 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
-const navLinks = [
+const navLinks: { label: string; href: string; external?: boolean }[] = [
   { label: "How It Works", href: "#how-it-works" },
   { label: "Use Cases", href: "#use-cases" },
   { label: "Technology", href: "#technology" },
+  { label: "Documentation", href: "https://docs.shinro.xyz/", external: true },
 ];
 
 export function Navigation() {
@@ -55,6 +56,8 @@ export function Navigation() {
             <Link
               key={link.label}
               href={link.href}
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noopener noreferrer" : undefined}
               className="text-sm text-shinro-light hover:text-white transition-colors"
             >
               {link.label}
@@ -109,6 +112,8 @@ export function Navigation() {
                 <Link
                   key={link.label}
                   href={link.href}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
                   className="block text-shinro-light hover:text-white"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
